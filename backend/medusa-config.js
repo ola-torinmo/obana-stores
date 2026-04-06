@@ -16,10 +16,15 @@ import {
   STRIPE_API_KEY,
   STRIPE_WEBHOOK_SECRET,
   WORKER_MODE,
-  MINIO_ENDPOINT,
-  MINIO_ACCESS_KEY,
-  MINIO_SECRET_KEY,
-  MINIO_BUCKET,
+  // MINIO - Commented out but keeping for future use
+  // MINIO_ENDPOINT,
+  // MINIO_ACCESS_KEY,
+  // MINIO_SECRET_KEY,
+  // MINIO_BUCKET,
+  // Cloudinary - New file storage
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
   MEILISEARCH_HOST,
   MEILISEARCH_ADMIN_KEY
 } from 'lib/constants';
@@ -55,16 +60,34 @@ const medusaConfig = {
       resolve: '@medusajs/file',
       options: {
         providers: [
-          ...(MINIO_ENDPOINT && MINIO_ACCESS_KEY && MINIO_SECRET_KEY ? [{
-            resolve: './src/modules/minio-file',
-            id: 'minio',
+          // Priority: Cloudinary > MinIO (commented) > Local fallback
+          
+          // Cloudinary (ACTIVE) - Free tier: 25GB storage, 25GB bandwidth
+          ...(CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET ? [{
+            resolve: 'medusa-file-cloudinary',
+            id: 'cloudinary',
             options: {
-              endPoint: MINIO_ENDPOINT,
-              accessKey: MINIO_ACCESS_KEY,
-              secretKey: MINIO_SECRET_KEY,
-              bucket: MINIO_BUCKET // Optional, default: medusa-media
+              cloud_name: CLOUDINARY_CLOUD_NAME,
+              api_key: CLOUDINARY_API_KEY,
+              api_secret: CLOUDINARY_API_SECRET,
+              secure: true,
             }
-          }] : [{
+          }] : 
+          
+          // MinIO (COMMENTED OUT - Uncomment if you want to use MinIO instead)
+          // ...(MINIO_ENDPOINT && MINIO_ACCESS_KEY && MINIO_SECRET_KEY ? [{
+          //   resolve: './src/modules/minio-file',
+          //   id: 'minio',
+          //   options: {
+          //     endPoint: MINIO_ENDPOINT,
+          //     accessKey: MINIO_ACCESS_KEY,
+          //     secretKey: MINIO_SECRET_KEY,
+          //     bucket: MINIO_BUCKET // Optional, default: medusa-media
+          //   }
+          // }] : 
+          
+          // Local file storage (FALLBACK) - Used if neither Cloudinary nor MinIO is configured
+          [{
             resolve: '@medusajs/file-local',
             id: 'local',
             options: {
@@ -135,7 +158,7 @@ const medusaConfig = {
     }] : [])
   ],
   plugins: [
-  ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
+    ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
       resolve: '@rokmohar/medusa-plugin-meilisearch',
       options: {
         config: {
