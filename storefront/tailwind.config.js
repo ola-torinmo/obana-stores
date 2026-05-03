@@ -34,6 +34,15 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        obana: {
+          pink: "#FF67B3",
+          "pink-light": "#F2A0B8",
+          "pink-pale": "#FDE8EF",
+          mauve: "#D4A29C",
+          cream: "#F1EAE1",
+          brown: "#3D2420",
+          "brown-light": "#6B4040",
+        },
       },
       borderRadius: {
         none: "0px",
@@ -59,16 +68,8 @@ module.exports = {
         "3xl": "2rem",
       },
       fontFamily: {
-        sans: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
-          "sans-serif",
-        ],
+        sans: ["NeueMontreal", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        heading: ["AbhayaLibre", "Georgia", "serif"],
       },
       keyframes: {
         ring: {
@@ -140,6 +141,10 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
@@ -155,6 +160,7 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        marquee: "marquee 22s linear infinite",
       },
     },
   },

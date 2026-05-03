@@ -1,14 +1,15 @@
 import { Metadata } from "next"
 
-import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import { getCollectionsWithProducts } from "@lib/data/collections"
-import { getRegion } from "@lib/data/regions"
+import FeaturesStrip from "@modules/home/components/features-strip"
+import ShopByCategory from "@modules/home/components/shop-by-category"
+import BrowseSubscriptions from "@modules/home/components/browse-subscriptions"
+import NurseryBanner from "@modules/home/components/nursery-banner"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Obana | Your Motherhood Journey Starts Here",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "No judgment, no perfection, just honest support for the incredible journey you're on. Find premium baby, pregnancy, and postpartum products.",
 }
 
 export default async function Home({
@@ -17,21 +18,17 @@ export default async function Home({
   params: Promise<{ countryCode: string }>
 }) {
   const { countryCode } = await params
-  const collections = await getCollectionsWithProducts(countryCode)
-  const region = await getRegion(countryCode)
-
-  if (!collections || !region) {
-    return null
-  }
 
   return (
     <>
-      <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
+      {/* Hero + FeaturesStrip together fill exactly one screen height on mobile */}
+      <div className="flex flex-col h-[100dvh] small:h-auto">
+        <Hero />
+        <FeaturesStrip />
       </div>
+      <ShopByCategory countryCode={countryCode} />
+      <BrowseSubscriptions />
+      <NurseryBanner />
     </>
   )
 }
