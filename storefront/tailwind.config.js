@@ -37,7 +37,7 @@ module.exports = {
         obana: {
           pink: "#FF67B3",
           "pink-light": "#F2A0B8",
-          "pink-pale": "#FDE8EF",
+          
           mauve: "#D4A29C",
           cream: "#F1EAE1",
           brown: "#3D2420",
