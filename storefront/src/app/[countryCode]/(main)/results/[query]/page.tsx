@@ -4,6 +4,7 @@ import SearchResultsTemplate from "@modules/search/templates/search-results-temp
 
 import { search } from "@modules/search/actions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { searchClient } from "@lib/search-client"
 
 export const metadata: Metadata = {
   title: "Search",
@@ -19,6 +20,15 @@ type Params = {
 }
 
 export default async function SearchResults({ params, searchParams }: Params) {
+  // Search is disabled - no MeiliSearch configured
+  if (!searchClient) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <p className="text-ui-fg-subtle">Search is currently unavailable.</p>
+      </div>
+    )
+  }
+
   const { query } = params
   const { sortBy, page } = searchParams
 
