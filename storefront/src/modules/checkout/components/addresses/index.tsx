@@ -95,10 +95,9 @@ const Addresses = ({
         <div>
           <div className="text-small-regular">
             {cart && cart.shipping_address ? (
-              <div className="flex items-start gap-x-8 ">
-                <div className="flex items-start gap-x-1 w-full ">
+              <div className="flex flex-col small:flex-row small:items-start gap-y-4 small:gap-x-6 w-full">
                   <div
-                    className="flex flex-col w-1/3"
+                    className="flex flex-col small:w-1/3"
                     data-testid="shipping-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
@@ -122,7 +121,7 @@ const Addresses = ({
                   </div>
 
                   <div
-                    className="flex flex-col w-1/3 "
+                    className="flex flex-col small:w-1/3"
                     data-testid="shipping-contact-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
@@ -131,13 +130,13 @@ const Addresses = ({
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.phone}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="txt-medium text-ui-fg-subtle break-all">
                       {cart.email}
                     </Text>
                   </div>
 
                   <div
-                    className="flex flex-col w-1/3"
+                    className="flex flex-col small:w-1/3"
                     data-testid="billing-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
@@ -168,7 +167,6 @@ const Addresses = ({
                       </>
                     )}
                   </div>
-                </div>
               </div>
             ) : (
               <div>
