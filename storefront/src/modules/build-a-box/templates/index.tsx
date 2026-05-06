@@ -283,7 +283,7 @@ export default function BuildABoxTemplate({
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 small:grid-cols-2 gap-4">
                   {displayProducts.map((product) => {
                     const inBox = isInBox(product.id!)
                     const oos = isOutOfStock(product)
@@ -334,7 +334,7 @@ export default function BuildABoxTemplate({
             {step === 2 && (
               <div>
                 <p className="text-sm text-[#636363] mb-6">Select from one of our Obana box wraps</p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 small:grid-cols-2 gap-4">
                   {wraps.map((wrap) => {
                     const isSelected = selectedWrap?.id === wrap.id
                     return (

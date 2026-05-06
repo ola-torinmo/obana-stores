@@ -10,7 +10,6 @@ import { updateLineItem } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import DeleteButton from "@modules/common/components/delete-button"
-import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
@@ -96,8 +95,30 @@ const CartDropdown = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalItems, itemRef.current])
 
+  const bagContent = (
+    <>
+      <Image src="/bag.png" alt="Cart" width={24} height={24} className="w-6 h-6 object-contain" />
+      {totalItems > 0 && (
+        <span className="absolute -top-1.5 -right-1.5 bg-obana-pink text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+          {totalItems}
+        </span>
+      )}
+    </>
+  )
+
   return (
-    <div className="h-full z-50" onMouseEnter={openAndCancel} onMouseLeave={close}>
+    <>
+      {/* Mobile: direct link to cart page */}
+      <LocalizedClientLink
+        href="/cart"
+        className="relative flex items-center hover:opacity-75 transition-opacity small:hidden"
+        data-testid="nav-cart-link"
+      >
+        {bagContent}
+      </LocalizedClientLink>
+
+      {/* Desktop: hover dropdown */}
+      <div className="hidden small:flex h-full z-50" onMouseEnter={openAndCancel} onMouseLeave={close}>
       <Popover className="relative h-full">
         {/* Use as={Fragment} so the <a> is the direct trigger — avoids invalid <button><a> nesting */}
         <Popover.Button as={Fragment}>
@@ -106,12 +127,7 @@ const CartDropdown = ({
             href="/cart"
             data-testid="nav-cart-link"
           >
-            <Image src="/bag.png" alt="Cart" width={24} height={24} className="w-6 h-6 object-contain" />
-            {totalItems > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-obana-pink text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                {totalItems}
-              </span>
-            )}
+            {bagContent}
           </LocalizedClientLink>
         </Popover.Button>
 
@@ -127,7 +143,7 @@ const CartDropdown = ({
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-[#FAFAFA] border-x border-b border-gray-200 w-[min(420px,calc(100vw-2rem))] text-ui-fg-base"
+            className="absolute top-[calc(100%+1px)] right-0 bg-[#FAFAFA] border-x border-b border-gray-200 w-[min(420px,calc(100vw-2rem))] text-ui-fg-base"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
@@ -152,7 +168,6 @@ const CartDropdown = ({
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
-                                <LineItemOptions variant={item.variant} data-testid="cart-item-variant" data-value={item.variant} />
                                 <QuantityControl lineId={item.id} quantity={item.quantity} />
                               </div>
                               <div className="flex justify-end">
@@ -202,7 +217,8 @@ const CartDropdown = ({
           </Popover.Panel>
         </Transition>
       </Popover>
-    </div>
+      </div>
+    </>
   )
 }
 
