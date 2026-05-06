@@ -42,7 +42,7 @@ const Addresses = ({
   const [message, formAction] = useFormState(setAddresses, null)
 
   return (
-    <div className="bg-white">
+    <div className="bg-obana-cream">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -95,8 +95,8 @@ const Addresses = ({
         <div>
           <div className="text-small-regular">
             {cart && cart.shipping_address ? (
-              <div className="flex items-start gap-x-8">
-                <div className="flex items-start gap-x-1 w-full">
+              <div className="flex items-start gap-x-8 ">
+                <div className="flex items-start gap-x-1 w-full ">
                   <div
                     className="flex flex-col w-1/3"
                     data-testid="shipping-address-summary"

@@ -23,7 +23,7 @@ const Hero = () => {
           need.
         </p>
         <LocalizedClientLink
-          href="/store"
+          href="/build-a-box"
           className="mt-1 bg-obana-pink hover:bg-obana-mauve text-white text-[14px] font-semibold px-[20px] py-[20px] rounded-[100px] transition-colors duration-200 text-sm w-[115px] h-[50px] flex items-center justify-center tracking-[-0.5%]"
         >
           Build a box

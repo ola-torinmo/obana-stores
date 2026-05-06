@@ -114,7 +114,7 @@ const Payment = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div className="bg-obana-cream">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -207,7 +207,7 @@ const Payment = ({
 
           <Button
             size="large"
-            className="mt-6"
+            className="mt-6 bg-obana-pink border-none"
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={

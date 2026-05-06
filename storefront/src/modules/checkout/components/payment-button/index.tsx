@@ -59,7 +59,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
         />
       )
     default:
-      return <Button disabled>Select a payment method</Button>
+      return <Button disabled className="!bg-obana-pink !border-obana-pink">Select a payment method</Button>
   }
 }
 
@@ -75,6 +75,7 @@ const GiftCardPaymentButton = () => {
     <Button
       onClick={handleOrder}
       isLoading={submitting}
+      className="!bg-obana-pink !border-obana-pink hover:!opacity-90 border-none"
       data-testid="submit-order-button"
     >
       Place order
@@ -177,6 +178,7 @@ const StripePaymentButton = ({
         onClick={handlePayment}
         size="large"
         isLoading={submitting}
+        className="!bg-obana-pink !border-obana-pink hover:!opacity-90 bg-obana-cream"
         data-testid={dataTestId}
       >
         Place order
@@ -286,6 +288,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         isLoading={submitting}
         onClick={handlePayment}
         size="large"
+        className="!bg-obana-pink !border-obana-pink hover:!opacity-90 bg-obana-cream"
         data-testid="submit-order-button"
       >
         Place order

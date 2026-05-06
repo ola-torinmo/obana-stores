@@ -1,13 +1,10 @@
 import { Suspense } from "react"
 import Image from "next/image"
-import { listRegions } from "@lib/data/regions"
-import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
+import NavCategoryLinks from "@modules/layout/components/nav-category-links"
 
 export default async function Nav() {
-  const regions = await listRegions().then((regions: StoreRegion[]) => regions)
-
   return (
     <div className="fixed top-4 left-0 right-0 z-50 px-4 small:px-8">
       <header className="bg-obana-cream rounded-[130px] max-w-[1272px] mx-auto">
@@ -37,24 +34,7 @@ export default async function Nav() {
             >
               About us
             </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/categories/baby"
-              className="text-[16px] text-[#636363] hover:text-obana-pink transition-colors"
-            >
-              Baby
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/categories/pregnancy"
-              className="text-[16px] text-[#636363] hover:text-obana-pink transition-colors"
-            >
-              Pregnancy
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/categories/postpartum"
-              className="text-[16px] text-[#636363] hover:text-obana-pink transition-colors"
-            >
-              Postpartum
-            </LocalizedClientLink>
+            <NavCategoryLinks />
           </div>
 
           {/* Right icons */}

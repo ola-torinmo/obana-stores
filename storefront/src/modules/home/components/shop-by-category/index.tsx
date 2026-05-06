@@ -21,7 +21,9 @@ async function fetchCategoryWithProducts(
     return { handle, label, products: [] }
   }
 
-  const { response: { products } } = await getProductsList({
+  const {
+    response: { products },
+  } = await getProductsList({
     countryCode,
     queryParams: {
       // @ts-ignore
@@ -36,18 +38,35 @@ async function fetchCategoryWithProducts(
     label,
     products: products.map((product) => {
       const { cheapestPrice } = getProductPrice({ product })
+
+      // Cheapest variant for direct add-to-cart
+      const cheapestVariant = (product.variants as any[])
+        ?.filter((v) => !!v.calculated_price)
+        .sort(
+          (a, b) =>
+            a.calculated_price.calculated_amount -
+            b.calculated_price.calculated_amount
+        )[0]
+
       return {
         id: product.id!,
         handle: product.handle!,
         title: product.title,
         thumbnail: product.thumbnail ?? null,
         price: cheapestPrice?.calculated_price ?? null,
+        variantId: cheapestVariant?.id ?? null,
       }
     }),
   }
 }
 
-const ShopByCategory = async ({ countryCode }: { countryCode: string }) => {
+const ShopByCategory = async ({
+  countryCode,
+  initialCategory,
+}: {
+  countryCode: string
+  initialCategory?: string
+}) => {
   const categories = await Promise.all(
     CATEGORY_HANDLES.map(({ handle, label }) =>
       fetchCategoryWithProducts(handle, label, countryCode)
@@ -56,7 +75,13 @@ const ShopByCategory = async ({ countryCode }: { countryCode: string }) => {
 
   const populated = categories.filter((c) => c.products.length > 0)
 
-  return <ShopByCategoryClient categories={populated.length ? populated : categories} />
+  return (
+    <ShopByCategoryClient
+      categories={populated.length ? populated : categories}
+      countryCode={countryCode}
+      initialCategory={initialCategory}
+    />
+  )
 }
 
 export default ShopByCategory

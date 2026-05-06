@@ -20,7 +20,7 @@ export function SubmitButton({
   return (
     <Button
       size="large"
-      className={className}
+      className={`!bg-obana-pink !border-obana-pink hover:!opacity-90 ${className ?? ""}`}
       type="submit"
       isLoading={pending}
       variant={variant || "primary"}

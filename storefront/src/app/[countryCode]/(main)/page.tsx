@@ -14,10 +14,13 @@ export const metadata: Metadata = {
 
 export default async function Home({
   params,
+  searchParams,
 }: {
   params: Promise<{ countryCode: string }>
+  searchParams: Promise<{ category?: string }>
 }) {
   const { countryCode } = await params
+  const { category } = await searchParams
 
   return (
     <>
@@ -26,7 +29,7 @@ export default async function Home({
         <Hero />
         <FeaturesStrip />
       </div>
-      <ShopByCategory countryCode={countryCode} />
+      <ShopByCategory countryCode={countryCode} initialCategory={category} />
       <BrowseSubscriptions />
       <NurseryBanner />
     </>

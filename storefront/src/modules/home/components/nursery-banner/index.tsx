@@ -10,7 +10,7 @@ const slides = [
     heading: "Build your dream nursery",
     body: "From cozy cribs to charming décor, discover everything you need to create a beautiful and functional space where precious memories begin. Shop curated collections designed to grow with your little one.",
     cta: "Build a box",
-    href: "/store",
+    href: "/build-a-box",
   },
   {
     image: "/nursery-bg2.png",

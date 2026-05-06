@@ -1,6 +1,6 @@
+import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ChevronDown from "@modules/common/icons/chevron-down"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
 
 export default function CheckoutLayout({
   children,
@@ -8,35 +8,49 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
-        <nav className="flex h-full items-center content-container justify-between">
+    <div className="w-full bg-obana-cream relative small:min-h-screen">
+      {/* Header */}
+      <div className="bg-obana-cream border-b border-[#E5DDD4]">
+        <nav className="flex h-16 items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
-            className="text-small-semi text-ui-fg-base flex items-center gap-x-2 uppercase flex-1 basis-0"
+            className="text-sm text-[#636363] flex items-center gap-x-2 flex-1 basis-0 hover:text-obana-pink transition-colors"
             data-testid="back-to-cart-link"
           >
             <ChevronDown className="rotate-90" size={16} />
-            <span className="mt-px hidden small:block txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base ">
-              Back to shopping cart
-            </span>
-            <span className="mt-px block small:hidden txt-compact-plus text-ui-fg-subtle hover:text-ui-fg-base">
-              Back
-            </span>
+            <span className="hidden small:block">Back to shopping cart</span>
+            <span className="block small:hidden">Back</span>
           </LocalizedClientLink>
+
           <LocalizedClientLink
             href="/"
-            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+            className="hover:opacity-80 transition-opacity"
             data-testid="store-link"
           >
-            Medusa Store
+            <Image
+              src="/Logo.png"
+              alt="Obana"
+              width={110}
+              height={44}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </LocalizedClientLink>
+
           <div className="flex-1 basis-0" />
         </nav>
       </div>
-      <div className="relative" data-testid="checkout-container">{children}</div>
-      <div className="py-4 w-full flex items-center justify-center">
-        <MedusaCTA />
+
+      {/* Page content */}
+      <div className="relative" data-testid="checkout-container">
+        {children}
+      </div>
+
+      {/* Footer */}
+      <div className="py-5 w-full flex items-center justify-center border-t border-[#E5DDD4] mt-8">
+        <p className="text-xs text-[#636363]">
+          © {new Date().getFullYear()} Obana. All rights reserved.
+        </p>
       </div>
     </div>
   )

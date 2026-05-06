@@ -14,17 +14,18 @@ type OrderCompletedTemplateProps = {
   order: HttpTypes.StoreOrder
 }
 
-export default function OrderCompletedTemplate({
+export default async function OrderCompletedTemplate({
   order,
 }: OrderCompletedTemplateProps) {
-  const isOnboarding = cookies().get("_medusa_onboarding")?.value === "true"
+  const cookieStore = await cookies()
+  const isOnboarding = cookieStore.get("_medusa_onboarding")?.value === "true"
 
   return (
-    <div className="py-6 min-h-[calc(100vh-64px)]">
-      <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full">
+    <div className="py-6 min-h-[calc(100vh-64px)] bg-obana-cream">
+      <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full bg-obana-cream">
         {isOnboarding && <OnboardingCta orderId={order.id} />}
         <div
-          className="flex flex-col gap-4 max-w-4xl h-full bg-white w-full py-10"
+          className="flex flex-col gap-4 max-w-4xl h-full bg-obana-cream w-full py-10"
           data-testid="order-complete-container"
         >
           <Heading

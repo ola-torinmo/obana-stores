@@ -70,6 +70,7 @@ module.exports = {
       fontFamily: {
         sans: ["NeueMontreal", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         heading: ["AbhayaLibre", "Georgia", "serif"],
+        product: ["var(--font-abhaya-eb)", "Georgia", "serif"],
       },
       keyframes: {
         ring: {

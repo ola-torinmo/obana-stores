@@ -4,8 +4,9 @@ import { Popover, Transition } from "@headlessui/react"
 import { Button } from "@medusajs/ui"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useEffect, useRef, useState, useTransition } from "react"
 
+import { updateLineItem } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import DeleteButton from "@modules/common/components/delete-button"
@@ -13,6 +14,46 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
+
+function QuantityControl({
+  lineId,
+  quantity,
+}: {
+  lineId: string
+  quantity: number
+}) {
+  const [isPending, startTransition] = useTransition()
+
+  const change = (delta: number) => {
+    const next = quantity + delta
+    if (next < 1) return
+    startTransition(async () => {
+      await updateLineItem({ lineId, quantity: next }).catch(() => {})
+    })
+  }
+
+  return (
+    <div className="flex items-center gap-1.5 mt-1">
+      <button
+        onClick={() => change(-1)}
+        disabled={isPending || quantity <= 1}
+        className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 text-xs disabled:opacity-40 hover:border-obana-pink hover:text-obana-pink transition-colors"
+      >
+        −
+      </button>
+      <span className="text-xs w-4 text-center tabular-nums" data-testid="cart-item-quantity" data-value={quantity}>
+        {quantity}
+      </span>
+      <button
+        onClick={() => change(1)}
+        disabled={isPending}
+        className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 text-xs disabled:opacity-40 hover:border-obana-pink hover:text-obana-pink transition-colors"
+      >
+        +
+      </button>
+    </div>
+  )
+}
 
 const CartDropdown = ({
   cart: cartState,
@@ -86,7 +127,7 @@ const CartDropdown = ({
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-[#FAFAFA] border-x border-b border-gray-200 w-[min(420px,calc(100vw-2rem))] text-ui-fg-base"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
@@ -106,15 +147,13 @@ const CartDropdown = ({
                           <div className="flex flex-col flex-1">
                             <div className="flex items-start justify-between">
                               <div className="flex flex-col overflow-ellipsis whitespace-nowrap mr-4 w-[180px]">
-                                <h3 className="text-base-regular overflow-hidden text-ellipsis">
+                                <h3 className="text-base-regular overflow-hidden text-ellipsis font-product">
                                   <LocalizedClientLink href={`/products/${item.variant?.product?.handle}`} data-testid="product-link">
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
                                 <LineItemOptions variant={item.variant} data-testid="cart-item-variant" data-value={item.variant} />
-                                <span data-testid="cart-item-quantity" data-value={item.quantity}>
-                                  Quantity: {item.quantity}
-                                </span>
+                                <QuantityControl lineId={item.id} quantity={item.quantity} />
                               </div>
                               <div className="flex justify-end">
                                 <LineItemPrice item={item} style="tight" />
@@ -138,7 +177,7 @@ const CartDropdown = ({
                     </span>
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
-                    <Button className="w-full" size="large" data-testid="go-to-cart-button">
+                    <Button className="w-full !bg-obana-pink !border-obana-pink hover:!opacity-90" size="large" data-testid="go-to-cart-button">
                       Go to cart
                     </Button>
                   </LocalizedClientLink>
@@ -146,7 +185,7 @@ const CartDropdown = ({
               </>
             ) : (
               <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
+                <div className="bg-obana-pink text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
                   <span>0</span>
                 </div>
                 <span>Your shopping bag is empty.</span>
@@ -154,7 +193,7 @@ const CartDropdown = ({
                   <LocalizedClientLink href="/store">
                     <>
                       <span className="sr-only">Go to all products page</span>
-                      <Button onClick={close}>Explore products</Button>
+                      <Button onClick={close} className="bg-obana-pink hover:bg-obana-pink-light border-none">Explore products</Button>
                     </>
                   </LocalizedClientLink>
                 </div>
