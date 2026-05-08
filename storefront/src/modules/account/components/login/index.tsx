@@ -1,4 +1,8 @@
-import { useFormState } from "react-dom"
+"use client"
+
+import { useActionState } from "react"
+import { useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Input from "@modules/common/components/input"
@@ -11,18 +15,30 @@ type Props = {
 }
 
 const Login = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useFormState(login, null)
+  const router = useRouter()
+  const [message, formAction] = useActionState(login, null)
+  const hasSubmitted = useRef(false)
+
+  useEffect(() => {
+    if (hasSubmitted.current && message === null) {
+      router.refresh()
+    }
+  }, [message, router])
 
   return (
     <div
-      className="max-w-sm w-full flex flex-col items-center"
+      className="max-w-sm w-full flex flex-col items-center bg-white rounded-2xl shadow-sm px-8 py-10"
       data-testid="login-page"
     >
       <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
         Sign in to access an enhanced shopping experience.
       </p>
-      <form className="w-full" action={formAction}>
+      <form
+        className="w-full"
+        action={formAction}
+        onSubmit={() => { hasSubmitted.current = true }}
+      >
         <div className="flex flex-col w-full gap-y-2">
           <Input
             label="Email"

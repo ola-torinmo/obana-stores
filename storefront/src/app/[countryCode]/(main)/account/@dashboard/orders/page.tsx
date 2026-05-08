@@ -10,11 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Orders() {
-  const orders = await listOrders()
-
-  if (!orders) {
-    notFound()
-  }
+  const orders = await listOrders().catch(() => null)
 
   return (
     <div className="w-full" data-testid="orders-page-wrapper">
@@ -26,7 +22,7 @@ export default async function Orders() {
         </p>
       </div>
       <div>
-        <OrderOverview orders={orders} />
+        <OrderOverview orders={orders || []} />
       </div>
     </div>
   )

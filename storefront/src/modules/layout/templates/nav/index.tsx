@@ -40,7 +40,9 @@ export default async function Nav() {
 
           {/* Right icons */}
           <div className="flex items-center gap-x-4">
-            {/* Profile icon — commented out
+
+            <MobileMenu />
+            
             <LocalizedClientLink
               href="/account"
               className="hover:opacity-70 transition-opacity"
@@ -54,9 +56,8 @@ export default async function Nav() {
                 className="w-5 h-5 small:w-6 small:h-6 object-contain"
               />
             </LocalizedClientLink>
-            */}
 
-            <MobileMenu />
+            
 
             <Suspense
               fallback={

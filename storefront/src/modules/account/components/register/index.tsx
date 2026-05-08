@@ -1,6 +1,8 @@
 "use client"
 
-import { useFormState } from "react-dom"
+import { useActionState } from "react"
+import { useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 
 import Input from "@modules/common/components/input"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
@@ -14,21 +16,32 @@ type Props = {
 }
 
 const Register = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useFormState(signup, null)
+  const router = useRouter()
+  const [message, formAction] = useActionState(signup, null)
+  const hasSubmitted = useRef(false)
+
+  useEffect(() => {
+    if (hasSubmitted.current && message === null) {
+      router.refresh()
+    }
+  }, [message, router])
 
   return (
     <div
-      className="max-w-sm flex flex-col items-center"
+      className="max-w-sm w-full flex flex-col items-center bg-white rounded-2xl shadow-sm px-8 py-10"
       data-testid="register-page"
     >
       <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
+        Become an Obana Member
       </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
-        shopping experience.
+        Create your Obana profile and get access to an enhanced shopping experience.
       </p>
-      <form className="w-full flex flex-col" action={formAction}>
+      <form
+        className="w-full flex flex-col"
+        action={formAction}
+        onSubmit={() => { hasSubmitted.current = true }}
+      >
         <div className="flex flex-col w-full gap-y-2">
           <Input
             label="First name"
@@ -70,7 +83,7 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Medusa Store&apos;s{" "}
+          By creating an account, you agree to Obana&apos;s{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"

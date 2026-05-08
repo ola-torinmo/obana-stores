@@ -48,17 +48,17 @@ export default function MobileMenu() {
         aria-expanded={isOpen}
       >
         <span
-          className={`block w-[20px] h-[1.5px] bg-[#101010] origin-center transition-transform duration-300 ${
+          className={`block w-[20px] h-[1.5px] bg-[#636363] origin-center transition-transform duration-300 ${
             isOpen ? "translate-y-[6.5px] rotate-45" : ""
           }`}
         />
         <span
-          className={`block w-[20px] h-[1.5px] bg-[#101010] transition-opacity duration-200 ${
+          className={`block w-[20px] h-[1.5px] bg-[#636363] transition-opacity duration-200 ${
             isOpen ? "opacity-0" : ""
           }`}
         />
         <span
-          className={`block w-[20px] h-[1.5px] bg-[#101010] origin-center transition-transform duration-300 ${
+          className={`block w-[20px] h-[1.5px] bg-[#636363] origin-center transition-transform duration-300 ${
             isOpen ? "-translate-y-[6.5px] -rotate-45" : ""
           }`}
         />
