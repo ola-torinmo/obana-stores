@@ -126,12 +126,12 @@ const ShopByCategoryClient = ({
         </h2>
 
         {/* Tabs */}
-        <div className="flex items-center justify-center gap-x-2 mb-8 small:mb-10 flex-wrap gap-y-2 bg-white p-[2.5px] w-[325px] mx-auto rounded-[102.5px]">
+        <div className="flex items-center justify-center gap-x-1 mb-8 small:mb-10 bg-white p-1 max-w-[340px] w-full mx-auto rounded-full">
           {categories.map((cat, i) => (
             <button
               key={cat.handle}
               onClick={() => setActiveIndex(i)}
-              className={`px-4 py-1.5 small:px-5 small:py-2 rounded-full text-xs small:text-sm font-medium transition-colors duration-200 ${
+              className={`px-3 py-1.5 small:px-5 small:py-2 rounded-full text-xs small:text-sm font-medium transition-colors duration-200 flex-1 text-center ${
                 activeIndex === i
                   ? "bg-obana-mauve text-white"
                   : "bg-white border-none border-gray-300 text-gray-600 hover:border-obana-pink hover:text-obana-pink"

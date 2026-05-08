@@ -3,6 +3,7 @@ import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import NavCategoryLinks from "@modules/layout/components/nav-category-links"
+import MobileMenu from "@modules/layout/components/mobile-menu"
 
 export default async function Nav() {
   return (
@@ -39,6 +40,7 @@ export default async function Nav() {
 
           {/* Right icons */}
           <div className="flex items-center gap-x-4">
+            {/* Profile icon — commented out
             <LocalizedClientLink
               href="/account"
               className="hover:opacity-70 transition-opacity"
@@ -52,6 +54,9 @@ export default async function Nav() {
                 className="w-5 h-5 small:w-6 small:h-6 object-contain"
               />
             </LocalizedClientLink>
+            */}
+
+            <MobileMenu />
 
             <Suspense
               fallback={
