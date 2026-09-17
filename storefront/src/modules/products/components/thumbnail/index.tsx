@@ -46,6 +46,16 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   )
 }
 
+// Matches the actual rendered width for each `size` variant so the browser
+// doesn't request a full-size image for a thumbnail rendered at 48-96px.
+const IMAGE_SIZES: Record<NonNullable<ThumbnailProps["size"]>, string> = {
+  small: "180px",
+  medium: "290px",
+  large: "440px",
+  full: "(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px",
+  square: "96px",
+}
+
 const ImageOrPlaceholder = ({
   image,
   size,
@@ -56,8 +66,8 @@ const ImageOrPlaceholder = ({
       alt="Thumbnail"
       className="absolute inset-0 object-cover object-center"
       draggable={false}
-      quality={50}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+      quality={75}
+      sizes={IMAGE_SIZES[size || "small"]}
       fill
     />
   ) : (

@@ -5,7 +5,11 @@ import ProductTemplate from "@modules/products/templates"
 import { getRegion } from "@lib/data/regions"
 import { getProductByHandle } from "@lib/data/products"
 
-export const dynamic = "force-dynamic"
+// ISR: serve cached HTML and revalidate in the background at most once a
+// minute, instead of re-rendering on every request. Price/inventory changes
+// made via the admin still show up within this window; region switches
+// revalidate immediately via revalidateTag("products") in cart.ts.
+export const revalidate = 60
 
 type Props = {
   params: { countryCode: string; handle: string }

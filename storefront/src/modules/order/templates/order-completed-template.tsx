@@ -21,7 +21,7 @@ export default async function OrderCompletedTemplate({
   const isOnboarding = cookieStore.get("_medusa_onboarding")?.value === "true"
 
   return (
-    <div className="py-6 min-h-[calc(100vh-64px)] bg-obana-cream">
+    <div className="pt-24 pb-6 small:pt-28 min-h-[calc(100vh-64px)] bg-obana-cream">
       <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full bg-obana-cream">
         {isOnboarding && <OnboardingCta orderId={order.id} />}
         <div

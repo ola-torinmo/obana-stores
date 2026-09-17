@@ -6,11 +6,12 @@ import { HttpTypes } from "@medusajs/types"
 import { omit } from "lodash"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
+import { cache } from "react"
 import { getAuthHeaders, getCartId, removeCartId, setCartId } from "./cookies"
 import { getProductsById } from "./products"
 import { getRegion } from "./regions"
 
-export async function retrieveCart() {
+export const retrieveCart = cache(async function () {
   const cartId = await getCartId()
 
   if (!cartId) {
@@ -23,11 +24,10 @@ export async function retrieveCart() {
     .catch(() => {
       return null
     })
-}
+})
 
 export async function getOrSetCart(countryCode: string) {
-  let cart = await retrieveCart()
-  const region = await getRegion(countryCode)
+  let [cart, region] = await Promise.all([retrieveCart(), getRegion(countryCode)])
 
   if (!region) {
     throw new Error(`Region not found for country code: ${countryCode}`)

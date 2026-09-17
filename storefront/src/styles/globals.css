@@ -2,6 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html,
+body {
+  background-color: #f1eae1;
+}
+
 @keyframes kenBurns {
   from { transform: scale(1.08); }
   to   { transform: scale(1);    }

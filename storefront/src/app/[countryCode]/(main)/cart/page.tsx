@@ -26,8 +26,7 @@ const fetchCart = async () => {
 }
 
 export default async function Cart() {
-  const cart = await fetchCart()
-  const customer = await getCustomer()
+  const [cart, customer] = await Promise.all([fetchCart(), getCustomer()])
 
   return <CartTemplate cart={cart} customer={customer} />
 }

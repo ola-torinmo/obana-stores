@@ -14,7 +14,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "http",
@@ -45,6 +45,10 @@ const nextConfig = {
         protocol: "https",
         hostname: process.env.NEXT_PUBLIC_MINIO_ENDPOINT,
       }] : []),
+      { // Note: needed when using Cloudflare R2 public bucket storage for media
+        protocol: "https",
+        hostname: "*.r2.dev",
+      },
     ],
   },
   serverRuntimeConfig: {
