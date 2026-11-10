@@ -171,7 +171,11 @@ const Payment = ({
                   </Text>
 
                   <CardElement
-                    options={useOptions as StripeCardElementOptions}
+                    
+                    options={{
+                      ...(useOptions as StripeCardElementOptions),
+                      hidePostalCode: true,
+                    }}    
                     onChange={(e) => {
                       setCardBrand(
                         e.brand &&
