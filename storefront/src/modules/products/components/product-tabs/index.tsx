@@ -11,12 +11,11 @@ type ProductTabsProps = {
   product: HttpTypes.StoreProduct
 }
 
-const ProductTabs = ({ product }: ProductTabsProps) => {
+// Product Information tab removed at the client's request (it exposed
+// material/origin/type fields from Medusa). The prop is kept so callers
+// don't need to change.
+const ProductTabs = (_props: ProductTabsProps) => {
   const tabs = [
-    {
-      label: "Product Information",
-      component: <ProductInfoTab product={product} />,
-    },
     {
       label: "Shipping & Returns",
       component: <ShippingInfoTab />,
@@ -37,27 +36,6 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
           </Accordion.Item>
         ))}
       </Accordion>
-    </div>
-  )
-}
-
-const ProductInfoTab = ({ product }: ProductTabsProps) => {
-  return (
-    <div className="text-small-regular py-8">
-      <div className="flex flex-col gap-y-4">
-        <div>
-          <span className="font-semibold">Material</span>
-          <p>{product.material ? product.material : "-"}</p>
-        </div>
-        <div>
-          <span className="font-semibold">Country of origin</span>
-          <p>{product.origin_country ? product.origin_country : "-"}</p>
-        </div>
-        <div>
-          <span className="font-semibold">Type</span>
-          <p>{product.type ? product.type.value : "-"}</p>
-        </div>
-      </div>
     </div>
   )
 }
