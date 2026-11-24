@@ -93,6 +93,14 @@ export default function MobileMenu() {
                   {label}
                 </a>
               ))}
+
+              <LocalizedClientLink
+                href="/store"
+                className="px-6 py-4 text-[16px] text-[#636363] hover:text-obana-pink hover:bg-white transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Products
+              </LocalizedClientLink>
             </nav>
           </div>
         </>
