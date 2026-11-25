@@ -49,6 +49,12 @@ export default async function Nav() {
                 </LocalizedClientLink>
               )
             )}
+            <LocalizedClientLink
+              href="/store"
+              className="text-[16px] text-[#636363] hover:text-obana-pink transition-colors"
+            >
+              Products
+            </LocalizedClientLink>
           </div>
 
           {/* Right icons */}

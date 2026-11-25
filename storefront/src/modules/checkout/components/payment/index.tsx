@@ -143,7 +143,14 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
-          {!paidByGiftcard && availablePaymentMethods?.length && (
+          {!paidByGiftcard && !availablePaymentMethods?.length && (
+            <Text className="txt-medium text-ui-fg-subtle">
+              Online payment is temporarily unavailable. Please contact us to
+              complete your order.
+            </Text>
+          )}
+
+          {!paidByGiftcard && availablePaymentMethods?.length > 0 && (
             <>
               <RadioGroup
                 value={selectedPaymentMethod}

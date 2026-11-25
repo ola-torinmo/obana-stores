@@ -25,7 +25,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     <div className="max-w-[1440px] mx-auto px-4 small:px-14">
       {/* Top padding clears the fixed floating nav */}
       <div
-        className="pt-28 small:pt-[300px] grid grid-cols-1 small:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] large:grid-cols-[450px_minmax(0,1fr)] gap-8 small:gap-12 items-start"
+        className="content-container flex flex-col small:flex-row small:items-start pt-24 pb-6 small:pt-28 relative"
         data-testid="product-container"
       >
         <div className="w-full small:sticky small:top-32">
