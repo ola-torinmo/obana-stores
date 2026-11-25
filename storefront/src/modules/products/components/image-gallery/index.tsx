@@ -1,39 +1,48 @@
 import { HttpTypes } from "@medusajs/types"
-import { Container } from "@medusajs/ui"
+import PlaceholderImage from "@modules/common/icons/placeholder-image"
 import Image from "next/image"
 
 type ImageGalleryProps = {
   images: HttpTypes.StoreProductImage[]
+  thumbnail?: string | null
 }
 
-const ImageGallery = ({ images }: ImageGalleryProps) => {
-  return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
-            >
-              {!!image.url && (
-                <Image
-                  src={image.url}
-                  priority={index <= 2 ? true : false}
-                  className="absolute inset-0 rounded-rounded"
-                  alt={`Product image ${index + 1}`}
-                  fill
-                  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </Container>
-          )
-        })}
+const frameClass =
+  "relative aspect-[450/538] w-full overflow-hidden rounded-[20px] bg-grey-10"
+
+const ImageGallery = ({ images, thumbnail }: ImageGalleryProps) => {
+  const withUrl = images.filter((image) => !!image.url)
+  // Some products only have a thumbnail set in the admin, with no gallery
+  // images. Fall back to the thumbnail so the page isn't left empty.
+  const visible =
+    withUrl.length > 0
+      ? withUrl
+      : thumbnail
+      ? [{ id: "thumbnail", url: thumbnail } as HttpTypes.StoreProductImage]
+      : []
+
+  if (!visible.length) {
+    return (
+      <div className={`${frameClass} flex items-center justify-center`}>
+        <PlaceholderImage size={48} />
       </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-y-4">
+      {visible.map((image, index) => (
+        <div key={image.id} id={image.id} className={frameClass}>
+          <Image
+            src={image.url!}
+            priority={index === 0}
+            className="object-cover"
+            alt={`Product image ${index + 1}`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 450px"
+          />
+        </div>
+      ))}
     </div>
   )
 }

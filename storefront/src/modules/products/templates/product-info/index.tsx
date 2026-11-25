@@ -1,38 +1,45 @@
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@medusajs/ui"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Divider from "@modules/common/components/divider"
+import IncludedItems, {
+  getIncludedItems,
+} from "@modules/products/components/included-items"
 
 type ProductInfoProps = {
   product: HttpTypes.StoreProduct
 }
 
-const ProductInfo = ({ product }: ProductInfoProps) => {
-  return (
-    <div id="product-info">
-      <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
-        {product.collection && (
-          <LocalizedClientLink
-            href={`/collections/${product.collection.handle}`}
-            className="text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
-          >
-            {product.collection.title}
-          </LocalizedClientLink>
-        )}
-        <Heading
-          level="h2"
-          className="text-3xl leading-10 text-ui-fg-base"
-          data-testid="product-title"
-        >
-          {product.title}
-        </Heading>
+export const ProductTitle = ({ product }: ProductInfoProps) => (
+  <h1
+    className="font-heading font-bold text-[26px] small:text-[28px] leading-tight text-[#101010]"
+    data-testid="product-title"
+  >
+    {product.title}
+  </h1>
+)
 
-        <Text
-          className="text-medium text-ui-fg-subtle whitespace-pre-line"
+/** Description + "What's included?" block, shown below the price. */
+const ProductInfo = ({ product }: ProductInfoProps) => {
+  const includedItems = getIncludedItems(product)
+
+  return (
+    <div id="product-info" className="flex flex-col">
+      {product.description && (
+        <p
+          className="text-base leading-6 text-[#636363] whitespace-pre-line"
           data-testid="product-description"
         >
           {product.description}
-        </Text>
-      </div>
+        </p>
+      )}
+
+      {includedItems.length > 0 && (
+        <>
+          <Divider className="border-grey-20 my-8" />
+          <IncludedItems items={includedItems} />
+        </>
+      )}
+
+      <Divider className="border-grey-20 my-8" />
     </div>
   )
 }

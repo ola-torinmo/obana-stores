@@ -1,11 +1,8 @@
-import React, { Suspense } from "react"
+import React from "react"
 
 import ImageGallery from "@modules/products/components/image-gallery"
-import ProductOnboardingCta from "@modules/products/components/product-onboarding-cta"
-import ProductTabs from "@modules/products/components/product-tabs"
-import RelatedProducts from "@modules/products/components/related-products"
-import ProductInfo from "@modules/products/templates/product-info"
-import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
+import ProductFaq from "@modules/products/components/product-faq"
+import ProductInfo, { ProductTitle } from "@modules/products/templates/product-info"
 import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
@@ -19,39 +16,39 @@ type ProductTemplateProps = {
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
   product,
   region,
-  countryCode,
 }) => {
   if (!product || !product.id) {
     return notFound()
   }
 
   return (
-    <>
+    <div className="max-w-[1440px] mx-auto px-4 small:px-14">
+      {/* Top padding clears the fixed floating nav */}
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="pt-28 small:pt-[300px] grid grid-cols-1 small:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] large:grid-cols-[450px_minmax(0,1fr)] gap-8 small:gap-12 items-start"
         data-testid="product-container"
       >
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-          <ProductInfo product={product} />
-          <ProductTabs product={product} />
+        <div className="w-full small:sticky small:top-32">
+          <ImageGallery
+            images={product?.images || []}
+            thumbnail={product?.thumbnail}
+          />
         </div>
-        <div className="block w-full relative">
-          <ImageGallery images={product?.images || []} />
-        </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          <ProductOnboardingCta />
-          <ProductActionsWrapper product={product} region={region} />
+
+        <div className="w-full small:pt-6">
+          <ProductActionsWrapper
+            product={product}
+            region={region}
+            header={<ProductTitle product={product} />}
+            details={<ProductInfo product={product} />}
+          />
         </div>
       </div>
-      <div
-        className="content-container my-16 small:my-32"
-        data-testid="related-products-container"
-      >
-        <Suspense fallback={<SkeletonRelatedProducts />}>
-          <RelatedProducts product={product} countryCode={countryCode} />
-        </Suspense>
+
+      <div className="pt-20 small:pt-[104px] pb-16 small:pb-24">
+        <ProductFaq />
       </div>
-    </>
+    </div>
   )
 }
 

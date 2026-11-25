@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from "@headlessui/react"
 import { Button } from "@medusajs/ui"
-import Image from "next/image"
+import Bag from "@modules/common/icons/bag"
 import { usePathname } from "next/navigation"
 import { Fragment, useEffect, useRef, useState, useTransition } from "react"
 
@@ -97,7 +97,8 @@ const CartDropdown = ({
 
   const bagContent = (
     <>
-      <Image src="/bag.png" alt="Cart" width={24} height={24} className="w-6 h-6 object-contain" />
+      <Bag size={24} className="text-[#636363]" aria-hidden="true" />
+      <span className="sr-only">Cart</span>
       {totalItems > 0 && (
         <span className="absolute -top-1.5 -right-1.5 bg-obana-pink text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
           {totalItems}
