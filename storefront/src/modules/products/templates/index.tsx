@@ -23,12 +23,12 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   return (
     <div className="max-w-[1440px] mx-auto px-4 small:px-14">
-      {/* Top padding clears the fixed floating nav */}
+      {/* Space below the fixed nav comes from NavSpacer in the (main) layout */}
       <div
-        className="content-container flex flex-col small:flex-row small:items-start pt-24 pb-6 small:pt-28 relative"
+        className="grid grid-cols-1 small:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] large:grid-cols-[780px_minmax(0,1fr)] gap-8 small:gap-12 items-start"
         data-testid="product-container"
       >
-        <div className="w-full small:sticky small:top-32">
+        <div className="w-full small:sticky small:top-[168px]">
           <ImageGallery
             images={product?.images || []}
             thumbnail={product?.thumbnail}

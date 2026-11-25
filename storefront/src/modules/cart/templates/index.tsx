@@ -13,7 +13,7 @@ const CartTemplate = ({
   customer: HttpTypes.StoreCustomer | null
 }) => {
   return (
-    <div className="pt-24 pb-6 small:pt-28 bg-obana-cream">
+    <div className="pb-6 bg-obana-cream">
       <div className="content-container" data-testid="cart-container">
         {cart?.items?.length ? (
           <div className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-x-40">
@@ -27,7 +27,7 @@ const CartTemplate = ({
               <ItemsTemplate items={cart?.items} />
             </div>
             <div className="relative">
-              <div className="flex flex-col gap-y-8 sticky top-12">
+              <div className="flex flex-col gap-y-8 sticky top-[112px] small:top-[168px]">
                 {cart && cart.region && (
                   <>
                     <div className="bg-obana-cream py-6">

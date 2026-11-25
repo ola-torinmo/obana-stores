@@ -12,7 +12,7 @@ export default function AboutPage() {
     <main>
 
       {/* ── Section 1: Obana's story ── */}
-      <section className="bg-obana-cream pt-32 pb-16 small:pt-40 small:pb-20">
+      <section className="bg-obana-cream pb-16 small:pb-20">
         <div className="content-container max-w-3xl">
           <h1 className="font-heading text-3xl small:text-[48px] font-bold text-center text-[#101010] mb-6 small:mb-8 leading-tight">
             Obana&apos;s story

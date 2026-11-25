@@ -217,7 +217,7 @@ export default function BuildABoxTemplate({
   return (
     <div className="bg-obana-cream min-h-screen">
       {/* Page header */}
-      <section className="pt-28 pb-10 text-center">
+      <section className="pb-10 text-center">
         <h1 className="font-heading text-4xl small:text-5xl font-bold text-[#101010] mb-3">
           Build a box
         </h1>
@@ -408,7 +408,7 @@ export default function BuildABoxTemplate({
           </div>
 
           {/* ── Right Panel: Box Summary (sticky) ── */}
-          <div className="sticky top-24">
+          <div className="sticky top-[112px] small:top-[168px]">
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
               {/* Header */}
               <div className="px-4 py-3 flex justify-between items-center" style={{ backgroundColor: "#D4A29C" }}>

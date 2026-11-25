@@ -4,7 +4,9 @@ import { ChevronDown } from "@medusajs/icons"
 import { useId, useState } from "react"
 
 // Placeholder answers — edit these freely.
-const FAQS = [
+export type FaqItem = { question: string; answer: string }
+
+const DEFAULT_FAQS: FaqItem[] = [
   {
     question: "What are Grab & Go boxes?",
     answer: "Placeholder answer — replace with the real copy.",
@@ -27,7 +29,11 @@ const FAQS = [
   },
 ]
 
-export default function ProductFaq() {
+export default function ProductFaq({
+  items = DEFAULT_FAQS,
+}: {
+  items?: FaqItem[]
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const baseId = useId()
 
@@ -45,7 +51,7 @@ export default function ProductFaq() {
       </h2>
 
       <ul>
-        {FAQS.map(({ question, answer }, i) => {
+        {items.map(({ question, answer }, i) => {
           const isOpen = openIndex === i
           const buttonId = `${baseId}-q-${i}`
           const panelId = `${baseId}-a-${i}`

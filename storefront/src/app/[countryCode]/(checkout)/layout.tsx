@@ -28,11 +28,11 @@ export default function CheckoutLayout({
             data-testid="store-link"
           >
             <Image
-              src="/Logo.png"
+              src="/logo-cropped.png"
               alt="Obana"
-              width={110}
-              height={44}
-              className="h-9 w-auto object-contain"
+              width={136}
+              height={58}
+              className="h-11 w-auto object-contain"
               priority
             />
           </LocalizedClientLink>

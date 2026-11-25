@@ -19,11 +19,11 @@ export default async function Nav() {
             data-testid="nav-store-link"
           >
             <Image
-              src="/Logo.png"
+              src="/logo-cropped.png"
               alt="Obana"
-              width={110}
-              height={44}
-              className="h-8 small:h-9 w-auto object-contain"
+              width={136}
+              height={58}
+              className="h-9 small:h-11 w-auto object-contain"
               priority
             />
           </LocalizedClientLink>
